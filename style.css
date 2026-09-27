@@ -1,0 +1,776 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    color: #333;
+}
+
+h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 4rem;
+    color: #c5a059;
+}
+
+/* --- ESTILO DEL SLIDESHOW --- */
+.hero {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slideshow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+}
+
+/* Cambia 'foto1.jpg' y 'foto2.jpg' por tus nombres de archivo reales */
+.slide-1 {
+    background-image: url('fondo2.PNG');
+    opacity: 1;
+}
+
+.slide-2 {
+    background-image: url('foto1.jpeg');
+    display: none;
+}
+
+/* --- CONTENIDO ENCIMA DE LAS FOTOS --- */
+.overlay {
+    background: rgba(255, 255, 255, 0.7);
+    padding: 25px 35px;
+    border-radius: 10px;
+    border: 2px solid #c5a059;
+    z-index: 1;
+}
+
+.overlay p {
+    font-size: 1.5rem;
+    margin: 10px 0;
+    color: #c5a059;
+}
+
+/* --- BOTONES Y TARJETAS --- */
+.info {
+    padding: 60px 20px;
+    background-color: #fdfaf3;
+    position: relative;
+}
+
+.info::before {
+    content: none;
+}
+.cards {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    width: 280px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    border-top: 4px solid #c5a059;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #c5a059;
+    color: white;
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: background 0.3s;
+    margin-top: 15px;
+}
+
+.btn:hover {
+    background-color: #a38446;
+}
+
+/* --- CONTROL DE MÚSICA --- */
+.music-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #c5a059;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.music-btn:hover {
+    background-color: #a38446;
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.music-btn.playing {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 4px 15px rgba(197, 160, 89, 0.4);
+    }
+    50% {
+        box-shadow: 0 4px 30px rgba(197, 160, 89, 0.8);
+    }
+}
+
+/* --- SPLASH SCREEN INICIAL --- */
+.splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #c5a059 0%, #a38446 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.6s ease;
+}
+
+.splash-screen.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.splash-content {
+    text-align: center;
+    color: white;
+    animation: slideUp 0.8s ease;
+}
+
+.splash-content i {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    display: block;
+    animation: bounce 2s infinite;
+}
+
+.splash-content h2 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    margin: 10px 0;
+}
+
+.splash-content p {
+    font-size: 1.1rem;
+    margin: 15px 0 30px;
+    opacity: 0.95;
+}
+
+.splash-btn {
+    background-color: white;
+    color: #c5a059;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.splash-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.splash-btn:active {
+    transform: translateY(0);
+}
+
+.splash-btn i {
+    margin-right: 8px;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* --- SECCIÓN DE VERSO Y FOTO --- */
+.verso-section {
+    padding: 60px 20px;
+    background-image: url('fondo5.PNG');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-top: 2px solid #c5a059;
+    border-bottom: 2px solid #c5a059;
+    position: relative;
+    color: #333;
+}
+
+.verso-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.75);
+    pointer-events: none;
+}
+
+.verso-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    position: relative; /* coloca encima del overlay */
+    z-index: 1;
+}
+
+
+.verso-image {
+    flex: 1;
+    min-width: 280px;
+    position: relative;
+    overflow: hidden;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.verso-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    z-index: 0;
+    will-change: opacity;
+    display: block;
+}
+
+.verso-slide.active {
+    opacity: 1;
+    z-index: 1;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.verso-text {
+    flex: 1;
+    min-width: 250px;
+    text-align: left;
+}
+
+.verso-quote {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.verso-biblia {
+    font-weight: bold;
+    color: #c5a059;
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* --- INFORMACIÓN DE LA BODA --- */
+.wedding-info {
+    padding: 50px 20px;
+    background-color: #fdfaf3;
+    text-align: center;
+}
+
+.wedding-info h2 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.wedding-names {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem;
+    color: #c5a059;
+    margin: 10px 0;
+}
+
+.wedding-date {
+    font-size: 1.3rem;
+    color: #666;
+    margin: 10px 0;
+}
+
+/* --- SECCIÓN DE PADRES --- */
+.parents-section {
+    padding: 50px 20px;
+    background-color: white;
+    position: relative;
+}
+
+.parents-section::before {
+    content: none;
+}
+.parents-container {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.parent-group {
+    flex: 1;
+    min-width: 200px;
+    padding: 30px;
+    background-color: #fdfaf3;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.parent-group h3 {
+    font-size: 1.3rem;
+    color: #c5a059;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #c5a059;
+    padding-bottom: 10px;
+}
+
+.parent-group p {
+    font-size: 1rem;
+    color: #333;
+    margin: 8px 0;
+}
+
+/* --- SECCIÓN DE CUENTA REGRESIVA --- */
+.countdown-section {
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #f5f0ed 0%, #fdfaf3 100%);
+    text-align: center;
+    border-top: 2px solid #c5a059;
+}
+
+.countdown-section h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 40px;
+}
+
+.countdown {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    min-width: 100px;
+}
+
+.countdown-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #c5a059;
+    line-height: 1;
+}
+
+.countdown-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- RESPONSIVE DESIGN PARA CELULARES --- */
+
+/* Tablets y pantallas medianas */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 3rem;
+    }
+
+    p {
+        font-size: 0.95rem;
+    }
+
+    .overlay p {
+        font-size: 1.2rem;
+    }
+
+    .hero {
+        height: 80vh;
+    }
+
+    .overlay {
+        padding: 20px 30px;
+        border-radius: 8px;
+    }
+
+    .info {
+        padding: 40px 15px;
+    }
+
+    .cards {
+        gap: 20px;
+        padding: 0 10px;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 300px;
+        padding: 25px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    .music-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+        bottom: 25px;
+        right: 25px;
+    }
+
+    .splash-content h2 {
+        font-size: 2.5rem;
+    }
+
+    .splash-content i {
+        font-size: 3rem;
+    }
+
+    .splash-content p {
+        font-size: 1rem;
+    }
+
+    .splash-btn {
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
+
+    .verso-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .verso-image {
+        flex: 1 100%;
+        height: 350px; /* Altura aumentada para tablets */
+    }
+
+    .verso-text {
+        text-align: center;
+    }
+
+    .wedding-info h2 {
+        font-size: 2rem;
+    }
+
+    .wedding-names {
+        font-size: 2rem;
+    }
+
+    .wedding-date {
+        font-size: 1.1rem;
+    }
+
+    .parents-container {
+        gap: 20px;
+    }
+
+    .parent-group {
+        padding: 20px;
+    }
+
+    .parent-group h3 {
+        font-size: 1.1rem;
+    }
+
+    .countdown-item {
+        min-width: 80px;
+        padding: 15px;
+    }
+
+    .countdown-number {
+        font-size: 2rem;
+    }
+}
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
+
+    .overlay p {
+        font-size: 1rem;
+    }
+
+    .hero {
+        height: 60vh;
+        min-height: 400px;
+    }
+
+    .overlay {
+        padding: 15px 20px;
+        margin: 0 10px;
+        border-radius: 5px;
+        border: 1.5px solid #c5a059;
+    }
+
+    .info {
+        padding: 30px 10px;
+    }
+
+    .cards {
+        gap: 15px;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 10px;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 100%;
+        padding: 20px;
+        margin: 0;
+    }
+
+    .card h3 {
+        font-size: 1.2rem;
+        margin-top: 0;
+    }
+
+    .card p {
+        margin: 10px 0;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.85rem;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .music-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .splash-content h2 {
+        font-size: 2rem;
+    }
+
+    .splash-content i {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+    }
+
+    .splash-content p {
+        font-size: 0.95rem;
+        margin: 10px 0 20px;
+    }
+
+    .splash-btn {
+        padding: 10px 25px;
+        font-size: 0.9rem;
+    }
+
+    .verso-section {
+        padding: 40px 15px;
+    }
+
+    .verso-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .verso-image {
+        height: 300px;
+        min-width: 100%;
+        flex: 0 0 100%;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        display: block;
+        background: white;
+    }
+
+    .verso-slide {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        width: 100% !important;
+        height: 100% !important;
+        opacity: 1 !important;
+        z-index: auto !important;
+        transition: none !important;
+    }
+
+    .verso-text {
+        text-align: center;
+        flex: 1 100%;
+    }
+
+    .verso-quote {
+        font-size: 1rem;
+    }
+
+    .wedding-info {
+        padding: 30px 15px;
+    }
+
+    .wedding-info h2 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+
+    .wedding-names {
+        font-size: 1.5rem;
+        margin: 5px 0;
+    }
+
+    .wedding-date {
+        font-size: 1rem;
+    }
+
+    .parents-section {
+        padding: 40px 15px;
+    }
+
+    .parents-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .parent-group {
+        padding: 15px;
+        margin: 0;
+    }
+
+    .parent-group h3 {
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+
+    .parent-group p {
+        font-size: 0.9rem;
+        margin: 5px 0;
+    }
+
+    .countdown-section {
+        padding: 40px 15px;
+    }
+
+    .countdown-section h2 {
+        font-size: 1.3rem;
+        margin-bottom: 25px;
+    }
+
+    .countdown {
+        gap: 10px;
+    }
+
+    .countdown-item {
+        min-width: 70px;
+        padding: 12px;
+    }
+
+    .countdown-number {
+        font-size: 1.8rem;
+    }
+
+    .countdown-label {
+        font-size: 0.8rem;
+    }
+}

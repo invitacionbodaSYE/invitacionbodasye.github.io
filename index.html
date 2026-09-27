@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Boda</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Audio de fondo -->
+    <audio id="audioFondo" preload="auto">
+        <source src="musica.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <!-- Banner inicial para reproducir música -->
+    <div class="splash-screen" id="splashScreen">
+        <div class="splash-content">
+            <i class="fas fa-music"></i>
+            <h2>¡Hola!</h2>
+            <p>Toca para disfrutar de la música</p>
+            <button class="splash-btn" id="startMusicBtn">
+                <i class="fas fa-play"></i> Reproducir
+            </button>
+        </div>
+    </div>
+
+    <!-- Botón de control de música -->
+    <button class="music-btn" id="musicBtn" title="Reproducir música">
+        <i class="fas fa-music"></i>
+    </button>
+
+    <header class="hero">
+        <div class="slideshow">
+            <div class="slide slide-1"></div>
+            <div class="slide slide-2"></div>
+        </div>
+        <div class="overlay">
+            <h1>Selene & Eduardo</h1>
+            <p>Nuestra Boda</p>
+        </div>
+    </header>
+
+    <!-- Sección de Verso y Foto -->
+    <section class="verso-section">
+        <div class="verso-container">
+            <div class="verso-image">
+                <img src="foto2.jpeg" alt="Foto de la pareja 1" class="verso-slide verso-slide-1 active">
+                <img src="foto3.jpeg" alt="Foto de la pareja 2" class="verso-slide verso-slide-2">
+                <img src="foto1.jpeg" alt="Foto de la pareja 3" class="verso-slide verso-slide-3">
+            </div>
+            <div class="verso-text">
+                <p class="verso-quote">
+                    "Grábame como un sello sobre tu corazón; llévame como una marca sobre tu brazo. Fuerte es el amor, como la muerte, y tenaz la pasión, como el sepulcro. Como llama divina es el fuego ardiente del amor. Ni las muchas aguas pueden apagarlo, ni los ríos pueden extinguirlo."
+                </p>
+                <p class="verso-biblia">Cantares 8:6-7a</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Información de la Boda -->
+    <section class="wedding-info">
+        <h2>Nuestra Boda</h2>
+        <p class="wedding-names">Selene & Eduardo</p>
+        <p class="wedding-date">17 de Octubre de 2026</p>
+                <p class="wedding-date">5:00 PM</p>
+
+    </section>
+
+    <!-- Sección de Padres -->
+    <section class="parents-section">
+        <div class="parents-container">
+            <div class="parent-group">
+                <h3>Padres de la Novia</h3>
+                <p>Jose Luis Maximo Diaz</p>
+                <p>Elvira Orozco de Jesus</p>
+            </div>
+            <div class="parent-group">
+                <h3>Padres del Novio</h3>
+                <p>Paula De la Cruz Hernandez</p>
+                <p>Marcelino Sánchez Morales</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cuenta Regresiva -->
+    <section class="countdown-section">
+        <h2>Cuenta Regresiva Para El Gran Día</h2>
+        <div class="countdown" id="countdown">
+            <div class="countdown-item">
+                <span class="countdown-number" id="dias">0</span>
+                <span class="countdown-label">Días</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="horas">0</span>
+                <span class="countdown-label">Horas</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="minutos">0</span>
+                <span class="countdown-label">Minutos</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="segundos">0</span>
+                <span class="countdown-label">Segundos</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="info">
+        <h2>Detalles del Evento</h2>
+        <div class="cards">
+            <div class="card">
+                <h3>Ubicación</h3>
+                <p>Haz clic para ver cómo llegar al evento</p>
+                <a href="https://maps.app.goo.gl/vX4pEZEgPKK8f28e8" target="_blank" class="btn">Ver Mapa</a>
+            </div>
+
+            <div class="card">
+                <h3>Asistencia</h3>
+                <p>Por favor, confirma tu asistencia aquí</p>
+                <a href="https://wa.me/525656719782?text=Confirmo%20mi%20asistencia" target="_blank" class="btn">Confirmar Asistencia</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const audioFondo = document.getElementById('audioFondo');
+        const musicBtn = document.getElementById('musicBtn');
+        const splashScreen = document.getElementById('splashScreen');
+        const startMusicBtn = document.getElementById('startMusicBtn');
+        let isPlaying = false;
+
+        // Click en el botón del splash screen
+        startMusicBtn.addEventListener('click', () => {
+            audioFondo.volume = 0.3;
+            audioFondo.play();
+            isPlaying = true;
+            updateMusicBtn();
+            closeSplashScreen();
+        });
+
+        // También cerrar el splash al hacer click en cualquier lado
+        splashScreen.addEventListener('click', (e) => {
+            if (e.target === splashScreen) {
+                audioFondo.volume = 0.3;
+                audioFondo.play();
+                isPlaying = true;
+                updateMusicBtn();
+                closeSplashScreen();
+            }
+        });
+
+        // Cerrar el splash screen
+        function closeSplashScreen() {
+            splashScreen.addEventListener('transitionend', () => {
+                splashScreen.style.display = 'none';
+            }, { once: true });
+            splashScreen.classList.add('hide');
+        }
+
+        // Click en el botón de música (cuando splash ya está cerrado)
+        musicBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                audioFondo.pause();
+                isPlaying = false;
+            } else {
+                audioFondo.play();
+                isPlaying = true;
+            }
+            updateMusicBtn();
+        });
+
+        // Actualizar estado del botón
+        function updateMusicBtn() {
+            if (isPlaying) {
+                musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                musicBtn.title = 'Pausar música';
+                musicBtn.classList.add('playing');
+            } else {
+                musicBtn.innerHTML = '<i class="fas fa-play"></i>';
+                musicBtn.title = 'Reproducir música';
+                musicBtn.classList.remove('playing');
+            }
+        }
+
+        // Reiniciar cuando termine
+        audioFondo.addEventListener('ended', () => {
+            audioFondo.currentTime = 0;
+            audioFondo.play();
+        });
+
+        // Cuenta Regresiva
+        function actualizarCuentaRegresiva() {
+            const fechaBoda = new Date('2026-10-17T00:00:00').getTime();
+            
+            function calcular() {
+                const ahora = new Date().getTime();
+                const diferencia = fechaBoda - ahora;
+                
+                const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+                const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+                const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+                
+                document.getElementById('dias').textContent = dias;
+                document.getElementById('horas').textContent = horas;
+                document.getElementById('minutos').textContent = minutos;
+                document.getElementById('segundos').textContent = segundos;
+                
+                if (diferencia < 0) {
+                    document.getElementById('countdown').innerHTML = '<p style="font-size: 1.5rem; color: #c5a059;">¡El gran día ha llegado!</p>';
+                }
+            }
+            
+            calcular();
+            setInterval(calcular, 1000);
+        }
+        
+        actualizarCuentaRegresiva();
+
+        // Slideshow de verso
+        function iniciarVersoSlideshow() {
+            const container = document.querySelector('.verso-image');
+            if (!container) {
+                return;
+            }
+            
+            const slides = container.querySelectorAll('.verso-slide');
+            if (slides.length === 0) {
+                return;
+            }
+            
+            // Detectar si está en móvil
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isMobile) {
+                // En móvil, usar display para alternar
+                slides.forEach((slide, index) => {
+                    if (index === 0) {
+                        slide.style.display = 'block';
+                    } else {
+                        slide.style.display = 'none';
+                    }
+                });
+                
+                let currentIndex = 0;
+                
+                setInterval(() => {
+                    slides[currentIndex].style.display = 'none';
+                    currentIndex = (currentIndex + 1) % slides.length;
+                    slides[currentIndex].style.display = 'block';
+                }, 5000);
+            } else {
+                // En escritorio, usar opacity
+                slides.forEach((slide) => {
+                    slide.style.opacity = '0';
+                });
+                slides[0].style.opacity = '1';
+                
+                let currentIndex = 0;
+                
+                setInterval(() => {
+                    slides[currentIndex].style.opacity = '0';
+                    currentIndex = (currentIndex + 1) % slides.length;
+                    slides[currentIndex].style.opacity = '1';
+                }, 5000);
+            }
+        }
+        
+        // Ejecutar cuando DOM esté listo
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', iniciarVersoSlideshow);
+        } else {
+            setTimeout(iniciarVersoSlideshow, 100);
+        }
+    </script>
+
+</body>
+</html>
